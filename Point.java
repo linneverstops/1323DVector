@@ -1,0 +1,84 @@
+/**
+ * A class that represents a 3-dimensional point
+ * @author Tung Ho, Lin
+ */
+
+public class Point {
+  
+  /** the x coordinate of the point */
+  private double x;
+  
+  /** the y coordinate of the point */
+  private double y;
+  
+  /** the z coordinate of the point */
+  private double z;
+  
+  /** A constructor that  takes three double values that represent the x, y, and z coordinates and it creates a point with those coordinates
+    * @param x the x coordinate
+    * @param y the y coordinate
+    * @param z the z coordinate
+    */
+  public Point (double x, double y, double z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  
+  /** A method to get the x coordinate of the point
+    * @return the x coordinate
+    */
+  public double getX() {
+    return this.x;
+  }
+  
+  /** A method to get the y coordinate of the point
+    * @return the y coordinate
+    */  public double getY() {
+    return this.y;
+  }
+  
+  /** A method to get the z coordinate of the point
+    * @return the z coordinate
+    */
+  public double getZ() {
+    return this.z;
+  }
+  
+  /** A method to get the difference between the two input Points and create a Vector out of the difference
+    * @param p1 the first input point
+    * @param p2 the second input point
+    * @return a new Vector from the difference between the two input points
+    */
+  public static Vector subtractToVector(Point p1, Point p2) {
+    return new Vector(p2.getX() - p1.getX(), p2.getY() - p1.getY(), p2.getZ() - p1.getZ());
+  }
+  
+  /** A method to get the String representation of the Point
+    * @return the String representation of the Point
+    */
+  public String toString() {
+    return "(" + getX() + ", " + getY() + ", " + getZ() + ")";
+  }
+
+  /** A method that overrides the equals method of class Object and determines whether the input point has the same coordinates as this Point
+    * @param p the input point
+    * @return true if the input point has the same coordinates as this Point
+    */
+  @Override
+  public boolean equals(Object p) {
+    if (((Point)p).getX() == getX() && ((Point)p).getY() == getY() && ((Point)p).getZ() == getZ())
+      return true;
+    else
+      return false;
+  }
+  
+  /** A static method to get the distance between the two input points
+    * @param p1 the first input point
+    * @param p2 the secod input point
+    * @return the distance between the two input points
+    */
+   public static double distance(Point p1, Point p2) {
+    return Math.sqrt(Math.pow((p2.getX() - p1.getX()), 2.0) + Math.pow((p2.getY() - p1.getY()), 2.0) + Math.pow((p2.getZ() - p1.getZ()), 2.0));  //the distance formula
+  }
+}

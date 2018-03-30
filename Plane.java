@@ -1,0 +1,143 @@
+/** a class that represents a plane, which will be defined as a point and a normal vector.
+  * @author Tung Ho, Lin
+  */
+import java.lang.StringBuilder;
+
+public class Plane {
+  
+  /** the point defining the plane */
+  private Point defpoint;
+  
+  /** the normal vector */
+  private Vector normal;
+  
+  /** a constructor that takes a Point and a Vector as input and creates a plane that contains the input Point and has the normal vector equal to the input Vector.
+    * @param p the plane's defining point
+    * @param v the plane's normal vector
+    */ 
+  public Plane (Point p, Vector v) {
+    this.defpoint = p;
+    this.normal = v;
+  }
+  
+  /** a constructor that takes three Point values as input and creates a plane that contains all three points.
+    * @param a the first input point
+    * @param b the second input point
+    * @param c the third input point
+    */ 
+  public Plane (Point a, Point b, Point c) {
+    this.defpoint = a;
+    Vector vectorab = new Vector(b.getX() - a.getX(), b.getY() - a.getY(), b.getZ() - a.getZ());  // the vector from point a to point b
+    Vector vectorbc = new Vector(c.getX() - b.getX(), c.getY() - b.getY(), c.getZ() - b.getZ());  // the vector from point b to point c
+    this.normal = Vector.crossProduct(vectorab, vectorbc);                              
+  }
+  
+  /** a method that returns the point defining the plane
+    * @return the point defining that plane
+    */ 
+  public Point getDefPoint() {
+    return this.defpoint;
+  }
+  
+  /** a method that returns the normal vector
+    * @return the normal vector
+    */   
+  public Vector getNormal() {
+    return this.normal;
+  }
+  
+  /** a method that overrides the toString method of class Object and returns the String representation of the plane equation
+    * @return the String representation of the plane equation
+    */   
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();   //StringBuilder instance to create String
+    double d = ((this.defpoint.getX() * normal.getA()) + (this.defpoint.getY() * normal.getB()) + (this.defpoint.getZ() * normal.getC()));   
+    //define d so that it can be referenced later
+    builder.append(normal.getA());
+    if (normal.getB() < 0.0) {
+      builder.append("x - ");
+      builder.append(Math.abs(normal.getB()));
+    }
+    else {
+      builder.append("x + ");
+      builder.append(normal.getB());
+    }
+    if(normal.getC() < 0.0) {
+      builder.append("y - ");
+      builder.append(Math.abs(normal.getC()));
+    }
+    else {
+      builder.append("y + ");
+      builder.append(normal.getC());
+    }
+    if(d < 0.0) {
+      builder.append("z + ");
+      builder.append(Math.abs(d));
+    }
+    else {
+      builder.append("z - ");
+      builder.append(d);
+    }
+    return builder.toString();
+  }
+  
+  /** a method that overrides the equals method of class Object and determines if the input plane is identical to this plane
+    * @param p1 the input plane
+    * @return true if the input plane is identical to this plane
+    */   
+  @Override
+  public boolean equals(Object p1) {
+    if (Plane.isParallel(((Plane)p1), this) == true) {
+      if (this.contains(((Plane)p1).getDefPoint()) == true)
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  
+  /** a method that determines if this plane contains the input point
+    * @param p1 the input point
+    * @return true if this plane contains the input point
+    */   
+  public boolean contains(Point p1) {
+    double resultofp1 = p1.getX() * normal.getA() + p1.getY() * normal.getB() + p1.getZ() * normal.getC() - (this.defpoint.getX() * normal.getA() + this.defpoint.getY() * normal.getB() + this.defpoint.getZ() * normal.getC());
+    //double resultofp1 is the result of this plane's equation when the input point's x, y and z coordinates values are plugged into this plane's equation
+    double resultofthis = this.defpoint.getX() * normal.getA() + this.defpoint.getY() * normal.getB() + this.defpoint.getZ() * normal.getC() - (this.defpoint.getX() * normal.getA() + this.defpoint.getY() * normal.getB() + this.defpoint.getZ() * normal.getC());
+    //double resultofthis is the result of this plane's equation when this plane's defining point's x, y and z coordinates values are plugged into this plane's equation
+    if (resultofp1 == resultofthis)     //if the two result equals to the same value, then this plane contains the input point
+      return true;
+    else
+      return false;
+  }
+  
+  /** a static method that determines if the two input planes are parallel to each other
+    * @param p1 the first input plane
+    * @param p2 the second input plane
+    * @return true if the two input planes are parallel to each other
+    */   
+  public static boolean isParallel(Plane p1, Plane p2) {
+    if (Vector.isParallel(p1.getNormal(), p2.getNormal()) == true)    //the two input plane are parallel if their normal vectors are parallel
+      return true;
+    else
+      return false;
+  }
+  
+  /** a static method that determines if the two input planes are orthogonal to each other
+    * @param p1 the first input plane
+    * @param p2 the second input plane
+    * @return true if the two input planes are orthogonal to each other
+    */  
+  public static boolean isOrthogonal(Plane p1, Plane p2) {
+    if (Vector.isOrthogonal(p1.getNormal(), p2.getNormal()) == true)   //the two input plane are orthogonal if their normal vectors are orthogonal
+      return true;
+    else
+      return false;
+  }
+  
+
+  
+  
+}

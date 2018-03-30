@@ -1,0 +1,59 @@
+import org.junit.*;
+import static org.junit.Assert.*;
+
+/** 
+ * Test class Point
+ */ 
+
+public class PointTester {
+  
+  /**
+   * Test getX method
+   */
+   @Test
+  public void testgetX() {
+    assertEquals(new Point(0.0, 0.0, 0.0).getX(), 0.0, 0.0);              //test 0
+    assertEquals(new Point(1.0, 1.0, 1.0).getX(), 1.0, 0.0);              //test 1
+    assertEquals(new Point(39.0, 45.0, 55.0).getX(), 39.0, 0.0);          //test many
+    assertEquals(new Point(-90.0, -32.0, -109.0).getX(), -90.0, 0.0);     //test many negative
+    //the third double input of assertEquals() is the epsilon, representing the allowed error
+  }
+   
+  /**
+   * Test getY method
+   */
+  @Test
+  public void testgetY() {
+    assertEquals(new Point(0.0, 0.0, 0.0).getY(), 0.0, 0.0);            //test 0
+    assertEquals(new Point(1.0, 1.0, 1.0).getY(), 1.0, 0.0);            //test 1
+    assertEquals(new Point(39.0, 45.0, 55.0).getY(), 45.0, 0.0);        //test many
+    assertEquals(new Point(-90.0, -32.0, -109.0).getY(), -32.0, 0.0);   //test many negative
+  }
+  
+   /**
+   * Test getZ method
+   */
+  @Test
+  public void testgetZ() {
+    assertEquals(new Point(0.0, 0.0, 0.0).getZ(), 0.0, 0.0);               //test 0
+    assertEquals(new Point(1.0, 1.0, 1.0).getZ(), 1.0, 0.0);               //test 1
+    assertEquals(new Point(39.0, 45.0, 55.0).getZ(), 55.0, 0.0);           //test many
+    assertEquals(new Point(-90.0, -32.0, -109.0).getZ(), -109.0, 0.0);     //test many negative
+  }
+  
+  
+  @Test
+  public void 
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

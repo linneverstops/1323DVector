@@ -1,0 +1,90 @@
+/** A class that represents a line in 2-dimensional space
+  * @author Tung Ho, Lin
+  */
+
+public class Line2D extends Line {
+  
+  /** the slope of the line */
+  private double m;
+  
+  /** the y-intercept of the line */
+  private double b;
+  
+  /** the initial point of the line */
+  private Point2D pp1;
+  
+  /** the ending point of the line */
+  private Point2D pp2;
+  
+  /** a constructor that takes two input values that are each type Point2D. The new Line2D is defined by the two points.
+    * @param p1 the first input point
+    * @param p2 the second input point
+    */ 
+  public Line2D (Point2D p1, Point2D p2) {
+    super(p1, p2);
+    this.pp1 = p1;
+    this.pp2 = p2;
+    this.m = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
+    this.b = p1.getY() - m * p1.getX();
+  }
+  
+  /** a method that returns the slope of the line 
+    * @return the slope of the line 
+    */
+  public double getM() {
+    return this.m;
+  }
+  
+  /** a method that returns the y-intercept of the line
+    * @return the y-intercept of the line
+    */ 
+  public double getB() {
+    return this.b;
+  }
+  
+  /** a method that returns the initial point of the line
+    * @return the initial point of the line
+    */ 
+  public Point getPP1() {
+    return this.pp1;
+  }
+  
+  /** a method that returns the ending point of the line
+    * @return the ending point of the line
+    */ 
+  public Point getPP2() {
+    return this.pp2;
+  }
+  
+  /** a method that overrides the toString method in class Line, returns the String representation of the equation of the line
+    * @return the String representation of the equation of the line
+    */
+  @Override
+  public String toString() {
+    return "y= " + this.m + "x+" + this.b;
+  }
+  
+  /** a method that overrides the equals method of class Object and determines whether the input line is identical to this line
+    * @param l1 the input line
+    * @return true if the input line is identical to this line
+    */
+  @Override
+  public boolean equals(Object l1) {
+    if (this.getPP1() == ((Line2D)l1).getPP1() && this.getPP2() == ((Line2D)l1).getPP2())
+      return true;
+    else
+      return false;
+  }
+  
+  /** a static method that determines whether the two input lines are parallel
+    * @param l1 the first input line
+    * @param l2 the second input line
+    * @return true if the two input lines are parallel
+    */
+  public static boolean isParallel(Line2D l1, Line2D l2) {
+    if (l1.getM() == l2.getM())
+      return true;
+    else
+      return false;
+  }
+}

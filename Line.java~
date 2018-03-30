@@ -1,0 +1,113 @@
+/** A class that represents a line in 3-dimensional space
+  * @author Tung Ho, Lin
+  */
+
+public class Line {
+  
+  /** the initial point of the line */
+  private Point initialpt;
+  
+  /** the vector of the line */
+  private Vector vector;
+  
+  /** a constructor that defines a line by two points where the points may be either type Point2D or type Point.
+    * @param p1 the first input point
+    * @param p2 the second input point
+    */ 
+  public Line (Point p1, Point p2) {
+    this.vector = new Vector(p2.getX() - p1.getX(), p2.getY() - p1.getY(), p2.getZ() - p1.getZ());
+    this.initialpt = p1;
+  }
+  
+  /** a constructor that defines a line by a point and a Vector where the point may be either type Point2D or Point.
+    * @param v1 the input vector
+    * @param p1 the input point
+    */ 
+  public Line (Vector v1, Point p1) {
+    this.vector = v1;
+    this.initialpt = p1;
+  }
+  
+  /** A method that returns the initial point of the line
+    * @return the initial point of the line
+    */
+  public Point getInitialPt() {
+    return this.initialpt;
+  }
+  
+  /** A method that overrides the toString method from class Object and returns the String representation of the equation of the line
+    * @return the String representation of the eqaution of the line
+    */
+  @Override
+  public String toString() {
+    return "(" + getInitialPt().getX() + "," + getInitialPt().getY() + "," + getInitialPt().getZ() + ") + t" +  vector.toString();
+  }
+  
+  /** A method that overrides the equals method of class Object and determines whether the input line is identical to this line
+    * @param l1 the input line
+    * @return true if the input line is identical to this line
+    */
+  @Override
+  public boolean equals(Object l1) {
+    if (Line.isParallel(new Line(this.getInitialPt(), ((Line)l1).getInitialPt()), this) == true)
+      return true;
+    else
+      return false;
+  }
+  
+  /** A method that returns the vector of the line
+    * @return the vector of the line
+    */
+  public Vector getVector() {
+    return this.vector;
+  }
+  
+  /** A static method that determines if the two input lines are parallel to each other
+    * @param l1 the first input line
+    * @param l2 the second input line
+    * @return true if the two input lines are parallel to each other
+    */
+  public static boolean isParallel(Line l1, Line l2) {
+    if (Vector.isParallel(l1.getVector(), l2.getVector()) == true)
+      return true;
+    else
+      return false;
+  }
+  
+  
+  /** A static method that returns the intersection of the two input 2Dlines
+    * @param l1 the first input 2Dline
+    * @param l2 the second input 2Dline
+    * @return the 2D point of intersection
+    */
+  public static Point2D intersection(Line2D l1, Line2D l2) {
+    double newx = (l1.getB() - l2.getB())/(l2.getM() - l1.getM());                           //stores the x coordinate of the intersection
+    double newy = (l2.getM() * l1.getB() - l1.getM() * l2.getB())/(l2.getM() - l1.getM());   //stores the y coordinate of the intersection
+    return new Point2D(newx, newy);
+  }
+  
+  /** A static method that returns the intersection of the two input lines
+    * @param l1 the first input line
+    * @param l2 the second input line
+    * @return the point of intersection
+    */
+  public static Point intersection(Line l1, Line l2) {
+    if (isParallel(l1, l2) == true)
+      return null;
+    else {
+      //double s and t corresponds to the unknown multiplier of Line l1 and Line l2's vector: l1 = (x1, y1, z1) + s(a1, b1, c1) ; l2 = (x2. y2, z2) + t(a2, b2, c2)
+      double s = (l1.getVector().getB() * (l2.getInitialPt().getX() - l1.getInitialPt().getX()) - l1.getVector().getA() * (l2.getInitialPt().getY() - l1.getInitialPt().getY()))/(l1.getVector().getA() * l2.getVector().getB() - l1.getVector().getB() * l2.getVector().getA());
+      // double s is calculated through a formula which is derived from the initial equation: x1+sa1 = x2+ta2 , y1+sb1 = y2+tb2 , z1+sc1 = z2+tc2
+      double t = (l2.getInitialPt().getX() - l1.getInitialPt().getX() + l2.getVector().getA() * s)/l1.getVector().getA();
+      // double t is also calculated by plugging double s into the original formula
+      if ((l1.getInitialPt().getZ() + t * l1.getVector().getC()) == l2.getInitialPt().getZ() + s * l2.getVector().getC())
+        /* the if condition determines if there is an intersection because after plugging in the s and t values into the z coordinate equations 
+         * if they do not equal to each other then there is no intersection between the two lines */
+        return new Point((l2.getInitialPt().getX() + l2.getVector().getA() * s), (l2.getInitialPt().getY() + l2.getVector().getB() * s), (l2.getInitialPt().getZ() + l2.getVector().getC() * s));
+      else
+        return null;
+    }
+  }
+        
+    
+}

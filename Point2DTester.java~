@@ -1,0 +1,68 @@
+import org.junit.*;
+import static org.junit.Assert.*;
+
+/** 
+ * Test class Point2D
+ */ 
+
+public class Point2DTester {
+  
+  /**
+   * Test getX method
+   */
+  @Test
+  public void testgetX() {
+    assertEquals(new Point2D(0.0, 0.0).getX(), 0.0, 0.0);           //test 0
+    assertEquals(new Point2D(1.0, 1.0).getX(), 1.0, 0.0);           //test 1
+    assertEquals(new Point2D(39.0, 45.0).getX(), 39.0, 0.0);        //test many
+    assertEquals(new Point2D(-90.0, -32.0).getX(), -90.0, 0.0);     //test many negative
+    //the third double input of assertEquals() is the epsilon, representing the allowed error
+  }
+  
+  /**
+   * Test getY method
+   */
+  @Test
+  public void testgetY() {
+    assertEquals(new Point2D(0.0, 0.0).getY(), 0.0, 0.0);           //test 0
+    assertEquals(new Point2D(1.0, 1.0).getY(), 1.0, 0.0);           //test 1
+    assertEquals(new Point2D(39.0, 45.0).getY(), 45.0, 0.0);        //test many
+    assertEquals(new Point2D(-90.0, -32.0).getY(), -32.0, 0.0);     //test many negative
+  }
+  
+  /**
+   * Test toString method
+   */ 
+  @Test
+  public void testtoString() {
+    assertEquals(new Point2D(0.0, 0.0).toString(), "(0.0, 0.0)");        //test 0
+    assertEquals(new Point2D(1.0, 1.0).toString(), "(1.0, 1.0)");        //test 1
+    assertEquals(new Point2D(6.0, 10.0).toString(), "(6.0, 10.0)");      //test many
+    assertEquals(new Point2D(-2.0, -5.0).toString(), "(-2.0, -5.0)");    //test many negative
+  }
+  
+  /**
+   * Test equals method
+   */
+  @Test
+  public void testequals() {
+    assertTrue(new Point2D(0.0, 0.0).equals(new Point2D(0.0, 0.0)));          //test true 0
+    assertTrue(new Point2D(1.0, 1.0).equals(new Point2D(1.0, 1.0)));          //test true 1
+    assertTrue(new Point2D(40.0, 60.0).equals(new Point2D(40.0, 60.0)));      //test true many
+    assertTrue(new Point2D(-10.0, -45.0).equals(new Point2D(-10.0, -45.0)));  //test true any negative
+    assertFalse(new Point2D(3.0, 4.0).equals(new Point2D(5.0, 6.0)));         //test false many
+    assertFalse(new Point2D(-30.0, 60.0).equals(new Point2D(30.0, 60.0)));     //test false many positive/negative
+  }
+  
+  /**
+   * Test distance method
+   */
+  @Test
+  public void testdistance() {
+    assertEquals(Point2D.distance(new Point2D(5.0, 5.0), new Point2D(5.0, 5.0)), 0.0, 0.0);        //test 0
+    assertEquals(Point2D.distance(new Point2D(5.0, 5.0), new Point2D(6.0, 5.0)), 1.0, 0.0);        //test 1
+    assertEquals(Point2D.distance(new Point2D(17.0, 5.0), new Point2D(17.0, 25.0)), 20.0, 0.0);     //test many    
+    assertEquals(Point2D.distance(new Point2D(3.0, 4.0), new Point2D(0.0, 0.0)), 5.0, 0.0);     //test many special
+    assertEquals(Point2D.distance(new Point2D(5.0, 5.0), new Point2D(-5.0, 5.0)), 10.0, 0.0);       //test many negative
+  }
+}
